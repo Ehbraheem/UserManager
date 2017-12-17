@@ -1,0 +1,22 @@
+version: '1'
+service: 
+  app: 
+    build: .
+    command: npm start
+    ports: 
+      - "3000:${PORT}"
+    volumes:
+      - /myapp
+    links:
+      - mongo
+    depends_on:
+      - mongo
+  mongo:
+    build:
+      context: ./db
+      dockerfile: Dockerfile
+    volumes: 
+      - ./database/data/db:/data/db
+    ports: 
+      - "27017:27017"
+    
